@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require("./modules/auth/auth.routes");
 const studentRoutes = require("./modules/students/student.routes");
 const courseRoutes = require("./modules/courses/course.routes");
+const curriculumRoutes = require("./modules/curriculum/curriculum.routes");
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/api/v1/students", studentRoutes);
 app.use("/api/v1/courses", courseRoutes);
+app.use("/api/v1/curriculums", curriculumRoutes);
 
 // routes
 app.use("/api/v1/auth", authRoutes);
