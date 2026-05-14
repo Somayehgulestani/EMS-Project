@@ -19,9 +19,7 @@ const createNotification = async (req, res) => {
 
 const getMyNotifications = async (req, res) => {
   try {
-    const result = await notificationService.getMyNotifications(
-      req.user.userId,
-    );
+    const result = await notificationService.getMyNotifications(req.user.id);
 
     res.status(200).json({
       success: true,

@@ -17,17 +17,17 @@ const getMyNotifications = async (userId) => {
 };
 
 const markAsRead = async (id) => {
-  const result = await Notification.findByIdAndUpdate(
-    id,
-    {
-      isRead: true,
-    },
-    {
-      new: true,
-    },
-  );
+  const notification = await Notification.findById(id);
 
-  return result;
+  if (!notification) {
+    throw new Error("Notification not found");
+  }
+
+  notification.isRead = true;
+
+  await notification.save();
+
+  return notification;
 };
 
 module.exports = {
