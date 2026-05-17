@@ -1,87 +1,53 @@
 const studentService = require("./student.service");
+const catchAsync = require("../../utils/catchAsync");
 
-const createStudent = async (req, res) => {
-  try {
-    const result = await studentService.createStudent(req.body);
+const createStudent = catchAsync(async (req, res) => {
+  const result = await studentService.createStudent(req.body);
 
-    res.status(201).json({
-      success: true,
-      message: "Student created successfully",
-      data: result,
-    });
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
+  res.status(201).json({
+    success: true,
+    message: "Student created successfully",
+    data: result,
+  });
+});
 
-const getAllStudents = async (req, res) => {
-  try {
-    const result = await studentService.getAllStudents();
+const getAllStudents = catchAsync(async (req, res) => {
+  const result = await studentService.getAllStudents(req.query);
 
-    res.status(200).json({
-      success: true,
-      data: result,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
+  res.status(200).json({
+    success: true,
+    data: result,
+  });
+});
 
-const getSingleStudent = async (req, res) => {
-  try {
-    const result = await studentService.getSingleStudent(req.params.id);
+const getSingleStudent = catchAsync(async (req, res) => {
+  const result = await studentService.getSingleStudent(req.params.id);
 
-    res.status(200).json({
-      success: true,
-      data: result,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
+  res.status(200).json({
+    success: true,
+    data: result,
+  });
+});
 
-const updateStudent = async (req, res) => {
-  try {
-    const result = await studentService.updateStudent(req.params.id, req.body);
+const updateStudent = catchAsync(async (req, res) => {
+  const result = await studentService.updateStudent(req.params.id, req.body);
 
-    res.status(200).json({
-      success: true,
-      message: "Student updated successfully",
-      data: result,
-    });
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
+  res.status(200).json({
+    success: true,
+    message: "Student updated successfully",
+    data: result,
+  });
+});
 
-const deleteStudent = async (req, res) => {
-  try {
-    const result = await studentService.deleteStudent(req.params.id);
+const deleteStudent = catchAsync(async (req, res) => {
+  const result = await studentService.deleteStudent(req.params.id);
 
-    res.status(200).json({
-      success: true,
-      message: "Student deleted successfully",
-      data: result,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
+  res.status(200).json({
+    success: true,
+    message: "Student deleted successfully",
+    data: result,
+  });
+});
 
 module.exports = {
   createStudent,

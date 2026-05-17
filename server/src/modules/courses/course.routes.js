@@ -4,9 +4,18 @@ const courseController = require("./course.controller");
 
 const auth = require("../../middlewares/auth.middleware");
 
+const validateRequest = require("../../middlewares/validate.middlewares");
+
+const { createCourseValidationSchema } = require("./course.validation");
+
 const router = express.Router();
 
-router.post("/", auth("admin"), courseController.createCourse);
+router.post(
+  "/",
+  auth("admin"),
+  validateRequest(createCourseValidationSchema),
+  courseController.createCourse,
+);
 
 router.get(
   "/",
@@ -20,7 +29,12 @@ router.get(
   courseController.getSingleCourse,
 );
 
-router.patch("/:id", auth("admin"), courseController.updateCourse);
+router.patch(
+  "/:id",
+  auth("admin"),
+  validateRequest(createCourseValidationSchema),
+  courseController.updateCourse,
+);
 
 router.delete("/:id", auth("admin"), courseController.deleteCourse);
 

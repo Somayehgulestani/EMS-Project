@@ -1,38 +1,26 @@
 const authService = require("./auth.service");
 
-const register = async (req, res) => {
-  try {
-    const result = await authService.registerUser(req.body);
+const catchAsync = require("../../utils/catchAsync");
 
-    res.status(201).json({
-      success: true,
-      message: "User registered successfully",
-      data: result,
-    });
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
+const register = catchAsync(async (req, res) => {
+  const result = await authService.registerUser(req.body);
 
-const login = async (req, res) => {
-  try {
-    const result = await authService.loginUser(req.body);
+  res.status(201).json({
+    success: true,
+    message: "User registered successfully",
+    data: result,
+  });
+});
 
-    res.status(200).json({
-      success: true,
-      message: "Login successful",
-      data: result,
-    });
-  } catch (error) {
-    res.status(401).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
+const login = catchAsync(async (req, res) => {
+  const result = await authService.loginUser(req.body);
+
+  res.status(200).json({
+    success: true,
+    message: "Login successful",
+    data: result,
+  });
+});
 
 module.exports = {
   register,

@@ -4,11 +4,18 @@ const notificationController = require("./notification.controller");
 
 const auth = require("../../middlewares/auth.middleware");
 
+const validateRequest = require("../../middlewares/validate.middlewares");
+
+const {
+  createNotificationValidationSchema,
+} = require("./notification.validation");
+
 const router = express.Router();
 
 router.post(
   "/",
   auth("admin", "instructor"),
+  validateRequest(createNotificationValidationSchema),
   notificationController.createNotification,
 );
 

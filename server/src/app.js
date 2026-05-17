@@ -8,6 +8,8 @@ const curriculumRoutes = require("./modules/curriculum/curriculum.routes");
 const classRoutes = require("./modules/classes/class.routes");
 const financeRoutes = require("./modules/finance/finance.routes");
 const notificationRoutes = require("./modules/notifications/notification.routes");
+const globalErrorHandler = require("./middlewares/globalErrorHandler");
+const instructorRoutes = require("./modules/instructors/instructor.routes");
 
 const app = express();
 
@@ -24,10 +26,13 @@ app.use("/api/v1/curriculums", curriculumRoutes);
 app.use("/api/v1/classes", classRoutes);
 app.use("/api/v1/finance", financeRoutes);
 app.use("/api/v1/notifications", notificationRoutes);
+app.use("/api/v1/instructors", instructorRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
   res.send("EMS API Running...");
 });
+
+app.use(globalErrorHandler);
 
 module.exports = app;
