@@ -23,3 +23,5 @@ router.post(
 router.get("/", auth("admin"), financeController.getAllFinanceRecords);
 
 router.get("/:id", auth("admin"), financeController.getSingleFinanceRecord);
+
+module.exports = router;

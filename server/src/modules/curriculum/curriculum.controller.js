@@ -30,17 +30,6 @@ const getSingleCurriculum = catchAsync(async (req, res) => {
   });
 });
 
-// const getSingleCurriculum = catchAsync(async (req, res) => {
-//   console.log(req.params.id);
-
-//   const result = await curriculumService.getSingleCurriculum(req.params.id);
-
-//   res.status(200).json({
-//     success: true,
-//     data: result,
-//   });
-// });
-
 const updateCurriculum = catchAsync(async (req, res) => {
   const result = await curriculumService.updateCurriculum(
     req.params.id,
