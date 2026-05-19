@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "coverage": "jest --collectCoverageFrom=src/**/*.js --coverage"
+    "start": "nodemon src/server.js",
+    "dev": "node src/server.js"
   },
   "keywords": [],
   "author": "",

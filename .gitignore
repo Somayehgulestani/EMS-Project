@@ -43,5 +43,3 @@ data/
 
 
 
-// "start": "nodemon src/server.js",
-    // "dev": "node src/server.js"
