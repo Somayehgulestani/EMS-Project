@@ -1,0 +1,113 @@
+export default function Navbar() {
+  return (
+    <nav className="space-y-2">
+      <button
+        className="
+                  w-full
+                  flex
+                  items-center
+                  px-4
+                  py-3
+                  rounded-2xl
+                  bg-[#D7BDB0]
+                  text-[#4B403A]
+                  text-sm
+                  font-medium
+                  shadow-md
+                "
+      >
+        Dashboard
+      </button>
+
+      <button
+        className="
+                  w-full
+                  flex
+                  items-center
+                  px-4
+                  py-3
+                  rounded-2xl
+                  text-sm
+                  font-medium
+                  text-[#6D625B]
+                  hover:bg-[#F8F5F2]
+                  transition-all
+                "
+      >
+        My Classes
+      </button>
+
+      <button
+        className="
+                  w-full
+                  flex
+                  items-center
+                  px-4
+                  py-3
+                  rounded-2xl
+                  text-sm
+                  font-medium
+                  text-[#6D625B]
+                  hover:bg-[#F8F5F2]
+                  transition-all
+                "
+      >
+        Students
+      </button>
+
+      <button
+        className="
+                  w-full
+                  flex
+                  items-center
+                  px-4
+                  py-3
+                  rounded-2xl
+                  text-sm
+                  font-medium
+                  text-[#6D625B]
+                  hover:bg-[#F8F5F2]
+                  transition-all
+                "
+      >
+        Salary
+      </button>
+
+      <button
+        className="
+                  w-full
+                  flex
+                  items-center
+                  px-4
+                  py-3
+                  rounded-2xl
+                  text-sm
+                  font-medium
+                  text-[#6D625B]
+                  hover:bg-[#F8F5F2]
+                  transition-all
+                "
+      >
+        Notifications
+      </button>
+
+      <button
+        className="
+                  w-full
+                  flex
+                  items-center
+                  px-4
+                  py-3
+                  rounded-2xl
+                  text-sm
+                  font-medium
+                  text-[#6D625B]
+                  hover:bg-[#F8F5F2]
+                  transition-all
+                "
+      >
+        Curriculum
+      </button>
+    </nav>
+  );
+}

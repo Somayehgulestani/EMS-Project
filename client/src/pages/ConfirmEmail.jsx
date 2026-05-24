@@ -1,3 +1,5 @@
+import Icon from "../features/ConfirmEmail/ConfirmEmailComponent/Icon";
+
 export default function ConfirmEmail() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#F5EBE1] to-[#EDEEE9] px-4">
@@ -14,22 +16,7 @@ export default function ConfirmEmail() {
         "
       >
         {/* Icon */}
-        <div className="flex justify-center mb-4">
-          <div
-            className="
-              w-16
-              h-16
-              rounded-2xl
-              bg-[#D7BDB0]/40
-              flex
-              items-center
-              justify-center
-              shadow-md
-            "
-          >
-            <span className="text-3xl">✉️</span>
-          </div>
-        </div>
+        <Icon />
 
         {/* Header */}
         <div className="text-center">
