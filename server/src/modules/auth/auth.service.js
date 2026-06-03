@@ -13,6 +13,16 @@ const registerUser = async (payload) => {
     throw new Error("User already exists");
   }
 
+  // prevent admin registration
+  if (role === "admin") {
+    throw new Error("Admin registration is not allowed");
+  }
+
+  // allow only valid roles
+  if (!["student", "instructor"].includes(role)) {
+    throw new Error("Invalid role");
+  }
+
   // hash password
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -24,7 +34,11 @@ const registerUser = async (payload) => {
     role,
   });
 
-  return user;
+  // remove password from response
+  const userResponse = user.toObject();
+  delete userResponse.password;
+
+  return userResponse;
 };
 
 const loginUser = async (payload) => {
@@ -56,9 +70,13 @@ const loginUser = async (payload) => {
     },
   );
 
+  // remove password from response
+  const userResponse = user.toObject();
+  delete userResponse.password;
+
   return {
     token,
-    user,
+    user: userResponse,
   };
 };
 

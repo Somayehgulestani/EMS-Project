@@ -1,10 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import StudentDashboard from "./pages/StudentDashboard";
 import "./index.css";
+import AppRoutes from "./routes/AppRoutes";
+import { RoleSelectContextData } from "./context/RoleSelectContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <StudentDashboard />
+    <RoleSelectContextData>
+      <AppRoutes />
+    </RoleSelectContextData>
   </StrictMode>,
 );
