@@ -1,10 +1,11 @@
-export default function VerifyBottom() {
+export default function VerifyBottom({ timer }) {
   return (
-    <button
-      className="
-            w-full
-            mt-5
-            py-2.5
+    timer > 0 && (
+      <button
+        className="
+              w-full
+              mt-5
+              py-2.5
             rounded-xl
             bg-[#D7BDB0]
             hover:bg-[#CDB1A3]
@@ -17,8 +18,9 @@ export default function VerifyBottom() {
             duration-300
             hover:-translate-y-0.5
           "
-    >
-      Verify Email
-    </button>
+      >
+        Verify Email
+      </button>
+    )
   );
 }

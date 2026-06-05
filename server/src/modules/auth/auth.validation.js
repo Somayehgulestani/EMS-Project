@@ -1,14 +1,32 @@
 const Joi = require("joi");
 
-const registerValidation = Joi.object({
+/*
+ Send Verification Code Validation
+*/
+
+const sendVerificationCodeValidation = Joi.object({
   fullName: Joi.string().required(),
 
   email: Joi.string().email().required(),
 
   password: Joi.string().min(6).required(),
 
-  role: Joi.string().valid("admin", "instructor", "student").required(),
+  role: Joi.string().valid("student", "instructor").required(),
 });
+
+/*
+ Verify Email Validation
+*/
+
+const verifyEmailValidation = Joi.object({
+  email: Joi.string().email().required(),
+
+  code: Joi.string().length(6).required(),
+});
+
+/*
+ Login Validation
+*/
 
 const loginValidation = Joi.object({
   email: Joi.string().email().required(),
@@ -17,6 +35,7 @@ const loginValidation = Joi.object({
 });
 
 module.exports = {
-  registerValidation,
+  sendVerificationCodeValidation,
+  verifyEmailValidation,
   loginValidation,
 };

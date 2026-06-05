@@ -1,5 +1,6 @@
-import { useContext, useReducer, useEffect } from "react";
+import { useContext, useReducer } from "react";
 import { RoleSelectContext } from "../../../context/RoleSelectContext";
+import { useNavigate } from "react-router-dom";
 
 const initialValue = {
   fullName: "",
@@ -33,20 +34,25 @@ export default function Form() {
 
   const [state, dispatch] = useReducer(reducer, initialValue);
   const { fullName, email, password } = state;
+  const navigate = useNavigate();
 
   const fetchData = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:5000/api/v1/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      "http://localhost:5000/api/v1/auth/send-verification-code",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fullName, email, password, role: selectedRole }),
       },
-      body: JSON.stringify({ fullName, email, password, role: selectedRole }),
-    });
+    );
 
     const data = await response.json();
     console.log(data);
+    navigate("/Confirmation");
   };
 
   return (
@@ -170,6 +176,7 @@ export default function Form() {
       </div>
 
       {/* Button */}
+
       <button
         type="submit"
         className="

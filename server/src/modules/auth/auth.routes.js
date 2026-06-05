@@ -1,19 +1,48 @@
 const express = require("express");
 
 const authController = require("./auth.controller");
+
 const auth = require("../../middlewares/auth.middleware");
-const { registerValidation, loginValidation } = require("./auth.validation");
+
 const validateRequest = require("../../middlewares/validate.middlewares");
+
+const {
+  sendVerificationCodeValidation,
+  verifyEmailValidation,
+  loginValidation,
+} = require("./auth.validation");
 
 const router = express.Router();
 
+/*
+Send Verification Code
+*/
+
 router.post(
-  "/register",
-  validateRequest(registerValidation),
-  authController.register,
+  "/send-verification-code",
+  validateRequest(sendVerificationCodeValidation),
+  authController.sendVerificationCode,
 );
 
+/*
+ Verify Email & Create Account
+*/
+
+router.post(
+  "/verify-email",
+  validateRequest(verifyEmailValidation),
+  authController.verifyEmail,
+);
+
+/*
+ Login
+*/
+
 router.post("/login", validateRequest(loginValidation), authController.login);
+
+/*
+ Admin Dashboard
+*/
 
 router.get("/admin-dashboard", auth("admin"), (req, res) => {
   res.status(200).json({
@@ -23,6 +52,10 @@ router.get("/admin-dashboard", auth("admin"), (req, res) => {
   });
 });
 
+/*
+ Instructor Dashboard
+*/
+
 router.get("/instructor-dashboard", auth("instructor"), (req, res) => {
   res.status(200).json({
     success: true,
@@ -30,6 +63,10 @@ router.get("/instructor-dashboard", auth("instructor"), (req, res) => {
     user: req.user,
   });
 });
+
+/*
+ Student Dashboard
+*/
 
 router.get("/student-dashboard", auth("student"), (req, res) => {
   res.status(200).json({
