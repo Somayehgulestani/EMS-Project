@@ -1,6 +1,43 @@
+import { useReducer } from "react";
+import { Link } from "react-router-dom";
+const initialValue = { email: "", password: "" };
+function reducer(state, acton) {
+  switch (acton.type) {
+    case "email":
+      return { ...state, email: acton.payload };
+    case "password":
+      return { ...state, password: acton.payload };
+    default:
+      return state;
+  }
+}
+
 export default function Form() {
+  const [state, dispatch] = useReducer(reducer, initialValue);
+  const { email, password } = state;
+
+  async function response(e) {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:5000/api/v1/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   return (
-    <form className="space-y-4">
+    <form className="space-y-4" onSubmit={(e) => response(e)}>
       {/* Email */}
       <div>
         <label className="block mb-1.5 text-[#5E524B] font-medium text-xs sm:text-sm">
@@ -8,6 +45,7 @@ export default function Form() {
         </label>
 
         <input
+          onChange={(e) => dispatch({ type: "email", payload: e.target.value })}
           type="email"
           placeholder="Enter your email"
           className="
@@ -36,6 +74,9 @@ export default function Form() {
         </label>
 
         <input
+          onChange={(e) =>
+            dispatch({ type: "password", payload: e.target.value })
+          }
           type="password"
           placeholder="Enter your password"
           className="
@@ -58,7 +99,7 @@ export default function Form() {
       </div>
 
       {/* Remember + Forgot */}
-      <div className="flex items-center justify-between text-xs sm:text-sm">
+      {/* <div className="flex items-center justify-between text-xs sm:text-sm">
         <label className="flex items-center gap-2 text-[#6D625B] cursor-pointer">
           <input type="checkbox" className="accent-[#D7BDB0] w-3.5 h-3.5" />
           Remember me
@@ -75,12 +116,13 @@ export default function Form() {
         >
           Forgot?
         </button>
-      </div>
+      </div> */}
 
       {/* Submit Button */}
-      <button
-        type="submit"
-        className="
+      <Link to="/confirm-email" state={{ email: email }}>
+        <button
+          type="submit"
+          className="
               w-full
               py-2.5
               rounded-xl
@@ -95,9 +137,10 @@ export default function Form() {
               duration-300
               hover:-translate-y-0.5
             "
-      >
-        Sign In
-      </button>
+        >
+          Sign In
+        </button>
+      </Link>
     </form>
   );
 }

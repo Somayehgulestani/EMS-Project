@@ -17,10 +17,12 @@ function reducer(state, action) {
       return { ...state, fullName: action.payload };
     case "email":
       return { ...state, email: action.payload };
+    // }
     case "password":
       return { ...state, password: action.payload };
     case "confirmPassword":
       return { ...state, confirmPassword: action.payload };
+
     case "role":
       return { ...state, role: action.payload };
     default:
@@ -28,7 +30,7 @@ function reducer(state, action) {
   }
 }
 
-export default function Form() {
+export default function Form({ setLoader, setErrorMessage }) {
   const { selectedRole } = useContext(RoleSelectContext);
   console.log(selectedRole);
 
@@ -38,38 +40,57 @@ export default function Form() {
 
   const fetchData = async (e) => {
     e.preventDefault();
-
-    const response = await fetch(
-      "http://localhost:5000/api/v1/auth/send-verification-code",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      setLoader(true);
+      const response = await fetch(
+        "http://localhost:5000/api/v1/auth/send-verification-code",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            fullName,
+            email,
+            password,
+            role: selectedRole,
+          }),
         },
-        body: JSON.stringify({ fullName, email, password, role: selectedRole }),
-      },
-    );
+      );
 
-    const data = await response.json();
-    console.log(data);
-    navigate("/Confirmation");
+      if (!response.ok) {
+        const errorData = await response.json();
+        setErrorMessage(errorData.message);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      navigate("/Confirmation", { state: { email } });
+    } catch (error) {
+      setLoader(false);
+      console.error("Error during sign-up:", error);
+    }
   };
 
   return (
-    <form className="space-y-4" onSubmit={(e) => fetchData(e)}>
-      {/* Full Name */}
-      <div>
-        <label className="block mb-2 text-[#5E524B] font-medium text-sm">
-          Full Name
-        </label>
+    <>
+      <form className="space-y-4" onSubmit={(e) => fetchData(e)}>
+        {/* Full Name */}
+        <div>
+          <label className="block mb-2 text-[#5E524B] font-medium text-sm">
+            Full Name
+          </label>
 
-        <input
-          onChange={(e) =>
-            dispatch({ type: "fullName", payload: e.target.value })
-          }
-          type="text"
-          placeholder="Enter your full name"
-          className="
+          <input
+            onChange={(e) =>
+              dispatch({
+                type: "fullName",
+                payload: e.target.value,
+              })
+            }
+            type="text"
+            placeholder="Enter your full name"
+            className="
                 w-full
                 px-3
                 py-2
@@ -84,20 +105,25 @@ export default function Form() {
                 transition-all
                 duration-300
               "
-        />
-      </div>
+          />
+        </div>
 
-      {/* Email */}
-      <div>
-        <label className="block mb-2 text-[#5E524B] font-medium text-sm">
-          Email
-        </label>
+        {/* Email */}
+        <div>
+          <label className="block mb-2 text-[#5E524B] font-medium text-sm">
+            Email
+          </label>
 
-        <input
-          onChange={(e) => dispatch({ type: "email", payload: e.target.value })}
-          type="email"
-          placeholder="Enter your email"
-          className="
+          <input
+            onChange={(e) =>
+              dispatch({
+                type: "email",
+                payload: e.target.value,
+              })
+            }
+            type="email"
+            placeholder="Enter your email"
+            className="
                 w-full
                 px-3
                 py-2
@@ -112,22 +138,22 @@ export default function Form() {
                 transition-all
                 duration-300
               "
-        />
-      </div>
+          />
+        </div>
 
-      {/* Password */}
-      <div>
-        <label className="block mb-2 text-[#5E524B] font-medium text-sm">
-          Password
-        </label>
+        {/* Password */}
+        <div>
+          <label className="block mb-2 text-[#5E524B] font-medium text-sm">
+            Password
+          </label>
 
-        <input
-          onChange={(e) =>
-            dispatch({ type: "password", payload: e.target.value })
-          }
-          type="password"
-          placeholder="Create a password"
-          className="
+          <input
+            onChange={(e) =>
+              dispatch({ type: "password", payload: e.target.value })
+            }
+            type="password"
+            placeholder="Create a password"
+            className="
                 w-full
                 px-3
                 py-2
@@ -142,22 +168,25 @@ export default function Form() {
                 transition-all
                 duration-300
               "
-        />
-      </div>
+          />
+        </div>
 
-      {/* Confirm Password */}
-      <div>
-        <label className="block mb-2 text-[#5E524B] font-medium text-sm">
-          Confirm Password
-        </label>
+        {/* Confirm Password */}
+        <div>
+          <label className="block mb-2 text-[#5E524B] font-medium text-sm">
+            Confirm Password
+          </label>
 
-        <input
-          onChange={(e) =>
-            dispatch({ type: "confirmPassword", payload: e.target.value })
-          }
-          type="password"
-          placeholder="Confirm your password"
-          className="
+          <input
+            onChange={(e) =>
+              dispatch({
+                type: "confirmPassword",
+                payload: e.target.value,
+              })
+            }
+            type="password"
+            placeholder="Confirm your password"
+            className="
                 w-full
                 px-3
                 py-2
@@ -172,14 +201,14 @@ export default function Form() {
                 transition-all
                 duration-300
               "
-        />
-      </div>
+          />
+        </div>
 
-      {/* Button */}
+        {/* Button */}
 
-      <button
-        type="submit"
-        className="
+        <button
+          type="submit"
+          className="
               w-full
               py-3
               rounded-xl
@@ -194,9 +223,10 @@ export default function Form() {
               hover:-translate-y-1
               mt-2
             "
-      >
-        Create Account
-      </button>
-    </form>
+        >
+          Create Account
+        </button>
+      </form>
+    </>
   );
 }

@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 export default function Timer({ timer, setTimer }) {
   useEffect(() => {
+    if (timer <= 0) return;
+
     const Timer = setInterval(() => {
       setTimer((time) => time - 1);
     }, 1000);
     return () => clearInterval(Timer);
-  }, []);
+  }, [timer]);
 
   return (
     <div className="text-center mt-4">

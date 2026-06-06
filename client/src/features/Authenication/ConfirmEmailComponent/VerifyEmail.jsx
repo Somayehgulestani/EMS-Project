@@ -1,8 +1,10 @@
-export default function VerifyBottom({ timer }) {
+export default function VerifyEmail({ timer, response }) {
   return (
-    timer > 0 && (
-      <button
-        className="
+    <>
+      {timer > 0 && (
+        <button
+          onClick={response}
+          className="
               w-full
               mt-5
               py-2.5
@@ -18,9 +20,10 @@ export default function VerifyBottom({ timer }) {
             duration-300
             hover:-translate-y-0.5
           "
-      >
-        Verify Email
-      </button>
-    )
+        >
+          Verify Email
+        </button>
+      )}
+    </>
   );
 }
