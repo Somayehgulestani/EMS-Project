@@ -1,7 +1,19 @@
+import { useEffect, useState } from "react";
+
 export default function ErrorMessage({ ErrorMessage }) {
+  const [time, setTime] = useState(true);
+  console.log(ErrorMessage);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTime(false);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
-    <div
-      className="
+    time && (
+      <div
+        className="
         absolute
         top-5
         right-4
@@ -28,10 +40,10 @@ export default function ErrorMessage({ ErrorMessage }) {
 
         animate-[toastSlide_.55s_cubic-bezier(0.22,1,0.36,1)]
       "
-    >
-      {/* Error Icon */}
-      <div
-        className="
+      >
+        {/* Error Icon */}
+        <div
+          className="
           min-w-[34px]
           h-[34px]
 
@@ -45,33 +57,34 @@ export default function ErrorMessage({ ErrorMessage }) {
 
           shadow-sm
         "
-      >
-        <span className="text-[#9e2e2e] text-sm font-bold">!</span>
-      </div>
+        >
+          <span className="text-[#9e2e2e] text-sm font-bold">!</span>
+        </div>
 
-      {/* Message */}
-      <div className="flex-1">
-        <p
-          className="
+        {/* Message */}
+        <div className="flex-1">
+          <p
+            className="
             text-sm
             font-semibold
             text-[#8b4343]
           "
-        >
-          Error
-        </p>
+          >
+            Error
+          </p>
 
-        <p
-          className="
+          <p
+            className="
             text-xs
             text-[#9f4b4b]
             mt-1
             leading-relaxed
           "
-        >
-          {ErrorMessage}
-        </p>
+          >
+            {ErrorMessage}
+          </p>
+        </div>
       </div>
-    </div>
+    )
   );
 }

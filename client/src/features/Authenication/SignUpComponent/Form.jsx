@@ -9,7 +9,6 @@ const initialValue = {
   confirmPassword: "",
   role: "",
 };
-console.log(initialValue.role);
 
 function reducer(state, action) {
   switch (action.type) {
@@ -35,13 +34,33 @@ export default function Form({ setLoader, setErrorMessage }) {
   console.log(selectedRole);
 
   const [state, dispatch] = useReducer(reducer, initialValue);
-  const { fullName, email, password } = state;
+  const { fullName, email, password, confirmPassword } = state;
   const navigate = useNavigate();
 
   const fetchData = async (e) => {
     e.preventDefault();
+
+    if (fullName.trim().length < 3 || fullName.trim().length > 20) {
+      setErrorMessage(
+        "fullname should not be less than 3 characters and more than 20 characters",
+      );
+      return;
+    }
+    if (email === "") {
+      setErrorMessage("Email should not be empty");
+      return;
+    }
+    if (password.trim().length < 6) {
+      setErrorMessage("Password should not be less than 6 characters");
+      return;
+    }
+    if (confirmPassword !== password) {
+      setErrorMessage("confirm password is wrong");
+      return;
+    }
+
+    setLoader(true);
     try {
-      setLoader(true);
       const response = await fetch(
         "http://localhost:5000/api/v1/auth/send-verification-code",
         {
@@ -58,17 +77,19 @@ export default function Form({ setLoader, setErrorMessage }) {
         },
       );
 
+      const data = await response.json();
       if (!response.ok) {
-        const errorData = await response.json();
-        setErrorMessage(errorData.message);
+        setErrorMessage(data.message);
+        return;
       }
 
-      const data = await response.json();
       console.log(data);
       navigate("/Confirmation", { state: { email } });
     } catch (error) {
-      setLoader(false);
       console.error("Error during sign-up:", error);
+      setErrorMessage("Network error!");
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -82,6 +103,7 @@ export default function Form({ setLoader, setErrorMessage }) {
           </label>
 
           <input
+            value={fullName}
             onChange={(e) =>
               dispatch({
                 type: "fullName",
@@ -115,6 +137,7 @@ export default function Form({ setLoader, setErrorMessage }) {
           </label>
 
           <input
+            value={email}
             onChange={(e) =>
               dispatch({
                 type: "email",
@@ -148,6 +171,7 @@ export default function Form({ setLoader, setErrorMessage }) {
           </label>
 
           <input
+            value={password}
             onChange={(e) =>
               dispatch({ type: "password", payload: e.target.value })
             }
@@ -178,6 +202,7 @@ export default function Form({ setLoader, setErrorMessage }) {
           </label>
 
           <input
+            value={confirmPassword}
             onChange={(e) =>
               dispatch({
                 type: "confirmPassword",

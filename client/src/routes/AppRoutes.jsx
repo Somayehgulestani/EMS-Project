@@ -9,7 +9,7 @@ import Loader from "../pages/Loader";
 
 export default function AppRoutes() {
   const [loader, setLoader] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+
   return (
     <BrowserRouter>
       <Suspense fallback={<Loader />} />
@@ -17,14 +17,7 @@ export default function AppRoutes() {
         <Route path="/" element={<RoleSelection />} />
         <Route
           path="/signup"
-          element={
-            <SignUp
-              setLoader={setLoader}
-              loader={loader}
-              setErrorMessage={setErrorMessage}
-              errorMessage={errorMessage}
-            />
-          }
+          element={<SignUp setLoader={setLoader} loader={loader} />}
         />
         <Route path="/Login" element={<Login />} />
         <Route path="/Confirmation" element={<ConfirmEmail />} />
