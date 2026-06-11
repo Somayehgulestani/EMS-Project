@@ -9,6 +9,8 @@ import Loader from "../pages/Loader";
 
 export default function AppRoutes() {
   const [loader, setLoader] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState(null);
 
   return (
     <BrowserRouter>
@@ -17,9 +19,28 @@ export default function AppRoutes() {
         <Route path="/" element={<RoleSelection />} />
         <Route
           path="/signup"
-          element={<SignUp setLoader={setLoader} loader={loader} />}
+          element={
+            <SignUp
+              setLoader={setLoader}
+              loader={loader}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          }
         />
-        <Route path="/Login" element={<Login />} />
+        <Route
+          path="/Login"
+          element={
+            <Login
+              setLoader={setLoader}
+              loader={loader}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+              successMessage={successMessage}
+              setSuccessMessage={setSuccessMessage}
+            />
+          }
+        />
         <Route path="/Confirmation" element={<ConfirmEmail />} />
       </Routes>
     </BrowserRouter>

@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { Link } from "react-router-dom";
+
 const initialValue = { email: "", password: "" };
 function reducer(state, acton) {
   switch (acton.type) {
@@ -12,12 +12,18 @@ function reducer(state, acton) {
   }
 }
 
-export default function Form() {
+export default function Form({
+  setLoader,
+  setSuccessMessage,
+  setErrorMessage,
+}) {
   const [state, dispatch] = useReducer(reducer, initialValue);
   const { email, password } = state;
 
   async function response(e) {
     e.preventDefault();
+    setSuccessMessage("");
+    setLoader(true);
     try {
       const response = await fetch("http://localhost:5000/api/v1/auth/login", {
         method: "POST",
@@ -29,10 +35,27 @@ export default function Form() {
           password: password,
         }),
       });
+
       const data = await response.json();
+
+      if (!response.ok) {
+        setErrorMessage(data.message);
+        setSuccessMessage("");
+
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 5000);
+        return;
+      }
+      setErrorMessage("");
+      setSuccessMessage(data.message);
+
       console.log(data);
     } catch (error) {
       console.error("Error:", error);
+      setErrorMessage("Network Error");
+    } finally {
+      setLoader(false);
     }
   }
 
@@ -119,10 +142,10 @@ export default function Form() {
       </div> */}
 
       {/* Submit Button */}
-      <Link to="/confirm-email" state={{ email: email }}>
-        <button
-          type="submit"
-          className="
+
+      <button
+        type="submit"
+        className="
               w-full
               py-2.5
               rounded-xl
@@ -137,10 +160,9 @@ export default function Form() {
               duration-300
               hover:-translate-y-0.5
             "
-        >
-          Sign In
-        </button>
-      </Link>
+      >
+        Sign In
+      </button>
     </form>
   );
 }

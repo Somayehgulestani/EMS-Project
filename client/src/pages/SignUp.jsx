@@ -6,8 +6,12 @@ import Form from "../features/Authenication/SignUpComponent/Form";
 import Header from "../features/Authenication/SignUpComponent/Header";
 import Loader from "./Loader";
 
-export default function SignUp({ setLoader, loader }) {
-  const [errorMessage, setErrorMessage] = useState("");
+export default function SignUp({
+  setLoader,
+  loader,
+  errorMessage,
+  setErrorMessage,
+}) {
   console.log(errorMessage);
   return (
     <>

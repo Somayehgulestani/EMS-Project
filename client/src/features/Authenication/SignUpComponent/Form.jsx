@@ -42,7 +42,7 @@ export default function Form({ setLoader, setErrorMessage }) {
 
     if (fullName.trim().length < 3 || fullName.trim().length > 20) {
       setErrorMessage(
-        "fullname should not be less than 3 characters and more than 20 characters",
+        "Fullname should not be less than 3 characters and more than 20 characters",
       );
       return;
     }
@@ -55,7 +55,7 @@ export default function Form({ setLoader, setErrorMessage }) {
       return;
     }
     if (confirmPassword !== password) {
-      setErrorMessage("confirm password is wrong");
+      setErrorMessage("confirm password is equal to password");
       return;
     }
 

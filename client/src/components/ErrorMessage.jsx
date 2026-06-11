@@ -5,11 +5,12 @@ export default function ErrorMessage({ ErrorMessage }) {
   console.log(ErrorMessage);
 
   useEffect(() => {
+    if (!ErrorMessage) return;
     const timer = setTimeout(() => {
       setTime(false);
     }, 5000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [ErrorMessage]);
   return (
     time && (
       <div
