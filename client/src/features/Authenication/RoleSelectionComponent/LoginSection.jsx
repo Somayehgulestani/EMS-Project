@@ -12,10 +12,10 @@ export default function LoginSection() {
           px-8
           py-3
               rounded-2xl
-              bg-[#bfbbb6]
-              text-[#4B403A]
+              bg-[#b4a18a]
+              text-[#50443e]
               font-semibold
-              text-lg
+            
               shadow-xl
               transition-all
               duration-300

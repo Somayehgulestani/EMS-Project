@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 import ConfirmEmail from "../pages/ConfirmEmail";
 import { Suspense } from "react";
 import Loader from "../pages/Loader";
+import AdminLogin from "../pages/AdminLogin";
 
 export default function AppRoutes() {
   const [loader, setLoader] = useState(false);
@@ -42,6 +43,16 @@ export default function AppRoutes() {
           }
         />
         <Route path="/Confirmation" element={<ConfirmEmail />} />
+        <Route
+          path="/AdminForm"
+          element={
+            <AdminLogin
+              setSuccessMessage={setSuccessMessage}
+              setErrorMessage={setErrorMessage}
+              setLoader={setLoader}
+            />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

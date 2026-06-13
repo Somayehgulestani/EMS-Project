@@ -1,6 +1,7 @@
 import Header from "../features/Authenication/RoleSelectionComponent/Header";
 import LoginSection from "../features/Authenication/RoleSelectionComponent/LoginSection";
 import RoleCards from "../features/Authenication/RoleSelectionComponent/RoleCards";
+import AdminAccess from "../features/Authenication/RoleSelectionComponent/AdminAccess";
 
 export default function RoleSelection() {
   return (
@@ -9,6 +10,7 @@ export default function RoleSelection() {
         <Header />
         <RoleCards />
         <LoginSection />
+        <AdminAccess />
       </div>
     </div>
   );
