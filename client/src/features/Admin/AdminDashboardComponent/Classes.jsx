@@ -2,14 +2,13 @@ export default function Classes() {
   return (
     <div
       className="
-                bg-white/50
-                backdrop-blur-xl
-                border
-                border-white/40
-                rounded-[24px]
-                p-5
-                shadow-md
-              "
+      bg-white/50
+      backdrop-blur-xl
+      border
+     border-white/40
+      rounded-[24px]
+      p-5
+      shadow-md"
     >
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-[#4B403A]">Classes</h3>
@@ -20,12 +19,11 @@ export default function Classes() {
       <div className="grid sm:grid-cols-2 gap-4 mt-5">
         <div
           className="
-                    bg-[#F8F5F2]
-                    border
-                    border-[#E3D5CA]
-                    rounded-2xl
-                    p-4
-                  "
+        bg-[#F8F5F2]
+        border
+        border-[#E3D5CA]
+        rounded-2xl
+        p-4"
         >
           <h4 className="text-sm font-semibold text-[#4B403A]">
             React Development

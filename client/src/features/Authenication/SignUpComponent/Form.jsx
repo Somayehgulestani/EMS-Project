@@ -55,7 +55,7 @@ export default function Form({ setLoader, setErrorMessage }) {
       return;
     }
     if (confirmPassword !== password) {
-      setErrorMessage("confirm password is equal to password");
+      setErrorMessage("confirm password is not equal to password");
       return;
     }
 

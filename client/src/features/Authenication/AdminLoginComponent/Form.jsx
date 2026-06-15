@@ -1,14 +1,15 @@
 import { useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 
-const initialValue = { email: "", password: "", securityCode: "" };
-function reducer(state, acton) {
-  switch (acton.type) {
+const initialValue = { email: "", password: "", adminSecret: "" };
+function reducer(state, action) {
+  switch (action.type) {
     case "email":
-      return { ...state, email: acton.payload };
+      return { ...state, email: action.payload };
     case "password":
-      return { ...state, password: acton.payload };
-    case "securityCode":
-      return { ...state, securityCode: acton.payload };
+      return { ...state, password: action.payload };
+    case "adminSecret":
+      return { ...state, adminSecret: action.payload };
     default:
       return state;
   }
@@ -19,24 +20,29 @@ export default function Form({
   setErrorMessage,
 }) {
   const [state, dispatch] = useReducer(reducer, initialValue);
-  const { email, password, securityCode } = state;
+  const { email, password, adminSecret } = state;
+  const navigate = useNavigate();
 
   async function response(e) {
     e.preventDefault();
     setSuccessMessage("");
     setLoader(true);
+
     try {
-      const response = await fetch("http://localhost:5000/api/v1/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "http://localhost:5000/api/v1/auth/admin-login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            adminSecret: adminSecret,
+          }),
         },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-          securityCode: securityCode,
-        }),
-      });
+      );
 
       const data = await response.json();
 
@@ -47,10 +53,12 @@ export default function Form({
         setTimeout(() => {
           setErrorMessage("");
         }, 5000);
-        return;
+      } else {
+        setErrorMessage("");
+        setSuccessMessage(data.message);
       }
-      setErrorMessage("");
-      setSuccessMessage(data.message);
+
+      navigate("/AdminDashboard");
 
       console.log(data);
     } catch (error) {
@@ -61,7 +69,10 @@ export default function Form({
     }
   }
   return (
-    <form className="mt-6 space-y-4 relative z-10">
+    <form
+      className="mt-6 space-y-4 relative z-10"
+      onSubmit={(e) => response(e)}
+    >
       {/* Email */}
       <div>
         <label className="block mb-2 text-sm font-medium text-[#5E524B]">
@@ -70,6 +81,7 @@ export default function Form({
 
         <input
           onChange={(e) => dispatch({ type: "email", payload: e.target.value })}
+          value={email}
           type="email"
           placeholder="Enter admin email"
           className="
@@ -102,6 +114,7 @@ export default function Form({
           onChange={(e) =>
             dispatch({ type: "password", payload: e.target.value })
           }
+          value={password}
           type="password"
           placeholder="Enter password"
           className="
@@ -132,9 +145,9 @@ export default function Form({
 
         <input
           onChange={(e) =>
-            dispatch({ type: "securityCode", payload: e.target.value })
+            dispatch({ type: "adminSecret", payload: e.target.value })
           }
-          type="password"
+          value={adminSecret}
           placeholder="Enter security code"
           className="
                 w-full

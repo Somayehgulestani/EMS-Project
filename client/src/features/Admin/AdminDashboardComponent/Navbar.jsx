@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Navbar() {
   return (
     <nav className="space-y-2">
@@ -18,6 +20,25 @@ export default function Navbar() {
       >
         Dashboard
       </button>
+      <Link to="/AdminDashboard/Users">
+        <button
+          className="
+              w-full
+              flex
+              items-center
+              px-4
+              py-3
+              rounded-2xl
+              text-[#6D625B]
+              text-sm
+              font-medium
+              hover:bg-[#F8F5F2]
+              transition-all
+            "
+        >
+          Users
+        </button>
+      </Link>
 
       <button
         className="

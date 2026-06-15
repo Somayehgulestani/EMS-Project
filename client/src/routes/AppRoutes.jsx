@@ -7,11 +7,14 @@ import ConfirmEmail from "../pages/ConfirmEmail";
 import { Suspense } from "react";
 import Loader from "../pages/Loader";
 import AdminLogin from "../pages/AdminLogin";
+import AdminDashboard from "../pages/AdminDashboard";
+import Users from "../pages/Users";
 
 export default function AppRoutes() {
   const [loader, setLoader] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState(null);
+  console.log(errorMessage);
 
   return (
     <BrowserRouter>
@@ -49,10 +52,13 @@ export default function AppRoutes() {
             <AdminLogin
               setSuccessMessage={setSuccessMessage}
               setErrorMessage={setErrorMessage}
+              errorMessage={errorMessage}
               setLoader={setLoader}
             />
           }
         />
+        <Route path="/AdminDashboard" element={<AdminDashboard />} />
+        <Route path="/AdminDashboard/Users" element={<Users />} />
       </Routes>
     </BrowserRouter>
   );
