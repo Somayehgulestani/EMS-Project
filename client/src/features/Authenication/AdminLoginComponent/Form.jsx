@@ -58,7 +58,10 @@ export default function Form({
         setSuccessMessage(data.message);
       }
 
-      navigate("/AdminDashboard");
+      sessionStorage.setItem("Token", data.data.token);
+      const token = sessionStorage.getItem("token");
+
+      navigate("/AdminDashboard", { state: token });
 
       console.log(data);
     } catch (error) {

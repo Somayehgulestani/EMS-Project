@@ -10,6 +10,7 @@ const financeRoutes = require("./modules/finance/finance.routes");
 const notificationRoutes = require("./modules/notifications/notification.routes");
 const globalErrorHandler = require("./middlewares/globalErrorHandler");
 const instructorRoutes = require("./modules/instructors/instructor.routes");
+const userRoutes = require("./modules/users/user.routes");
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use("/api/v1/classes", classRoutes);
 app.use("/api/v1/finance", financeRoutes);
 app.use("/api/v1/notifications", notificationRoutes);
 app.use("/api/v1/instructors", instructorRoutes);
+app.use("/api/v1/users", userRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
