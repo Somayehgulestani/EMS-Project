@@ -59,9 +59,8 @@ export default function Form({
       }
 
       sessionStorage.setItem("Token", data.data.token);
-      const token = sessionStorage.getItem("token");
 
-      navigate("/AdminDashboard", { state: token });
+      navigate("/AdminDashboard");
 
       console.log(data);
     } catch (error) {

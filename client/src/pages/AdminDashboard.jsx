@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Logo from "../features/Admin/AdminDashboardComponent/Logo";
 import Navbar from "../features/Admin/AdminDashboardComponent/Navbar";
@@ -8,14 +7,12 @@ import StatS from "../features/Admin/AdminDashboardComponent/StatS";
 import Content from "../features/Admin/AdminDashboardComponent/Content";
 
 export default function AdminDashboard() {
-  const location = useLocation();
-  const token = location.state;
   return (
     <div className="min-h-screen flex bg-gradient-to-b from-[#F5EBE1] to-[#EDEEE9]">
       {/* Sidebar */}
       <Sidebar>
         <Logo />
-        <Navbar token={token} />
+        <Navbar />
         <BottomCard />
       </Sidebar>
 

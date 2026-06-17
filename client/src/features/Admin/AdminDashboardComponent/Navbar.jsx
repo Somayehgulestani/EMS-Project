@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Navbar({ token }) {
+export default function Navbar() {
   return (
     <nav className="space-y-2">
       <button
@@ -20,7 +20,7 @@ export default function Navbar({ token }) {
       >
         Dashboard
       </button>
-      <Link to="/AdminDashboard/Users" state={{ token: token }}>
+      <Link to="/AdminDashboard/Users">
         <button
           className="
               w-full
