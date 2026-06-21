@@ -7,14 +7,9 @@ const studentSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    phone: {
+    studentCode: {
       type: String,
-      required: true,
-    },
-
-    address: {
-      type: String,
-      required: true,
+      unique: true,
     },
 
     registrationDate: {

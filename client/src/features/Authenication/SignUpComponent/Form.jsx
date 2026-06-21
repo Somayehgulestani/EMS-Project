@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const initialValue = {
   fullName: "",
   email: "",
+  phone: "",
   password: "",
   confirmPassword: "",
   role: "",
@@ -16,7 +17,8 @@ function reducer(state, action) {
       return { ...state, fullName: action.payload };
     case "email":
       return { ...state, email: action.payload };
-    // }
+    case "phone":
+      return { ...state, phone: action.payload };
     case "password":
       return { ...state, password: action.payload };
     case "confirmPassword":
@@ -34,7 +36,7 @@ export default function Form({ setLoader, setErrorMessage }) {
   console.log(selectedRole);
 
   const [state, dispatch] = useReducer(reducer, initialValue);
-  const { fullName, email, password, confirmPassword } = state;
+  const { fullName, email, phone, password, confirmPassword } = state;
   const navigate = useNavigate();
 
   const fetchData = async (e) => {
@@ -48,6 +50,10 @@ export default function Form({ setLoader, setErrorMessage }) {
     }
     if (email === "") {
       setErrorMessage("Email should not be empty");
+      return;
+    }
+    if (phone.trim().length !== 10) {
+      setErrorMessage("Phone number should be valid");
       return;
     }
     if (password.trim().length < 6) {
@@ -71,6 +77,7 @@ export default function Form({ setLoader, setErrorMessage }) {
           body: JSON.stringify({
             fullName,
             email,
+            phone,
             password,
             role: selectedRole,
           }),
@@ -146,6 +153,39 @@ export default function Form({ setLoader, setErrorMessage }) {
             }
             type="email"
             placeholder="Enter your email"
+            className="
+                w-full
+                px-3
+                py-2
+                rounded-xl
+                bg-[#F8F5F2]
+                border border-[#E3D5CA]
+                outline-none
+                focus:ring-3
+                focus:ring-[#D7BDB0]/40
+                text-[#4B403A]
+                placeholder:text-[#9B8F88]
+                transition-all
+                duration-300
+              "
+          />
+        </div>
+        {/*Phone*/}
+        <div>
+          <label className="block mb-2 text-[#5E524B] font-medium text-sm">
+            Phone
+          </label>
+
+          <input
+            value={phone}
+            onChange={(e) =>
+              dispatch({
+                type: "phone",
+                payload: e.target.value,
+              })
+            }
+            type="number"
+            placeholder="0798112233"
             className="
                 w-full
                 px-3

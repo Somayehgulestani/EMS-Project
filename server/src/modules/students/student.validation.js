@@ -1,11 +1,7 @@
 const Joi = require("joi");
 
 const createStudentValidationSchema = Joi.object({
-  user: Joi.string().required(),
-
-  phone: Joi.string().required(),
-
-  address: Joi.string().required(),
+  user: Joi.string(),
 
   academicStatus: Joi.string().valid("active", "inactive", "graduated"),
 

@@ -3,8 +3,8 @@ export default function TableHeader() {
     <div
       className="
             hidden
-            xl:grid
-            grid-cols-7
+            lg:grid
+            grid-cols-[1.8fr_3fr_3.2fr_1.5fr_1.3fr_1.5fr_2.5fr]
             gap-4
             px-6
             py-4

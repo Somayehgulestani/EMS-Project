@@ -7,15 +7,14 @@ const instructorSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-
+    instructorCode: {
+      type: String,
+      unique: true,
+    },
     specialization: {
       type: String,
-      required: true,
-    },
-
-    phone: {
-      type: String,
-      required: true,
+      enum: ["English", "computer", "other"],
+      default: "English",
     },
 
     assignedClasses: [

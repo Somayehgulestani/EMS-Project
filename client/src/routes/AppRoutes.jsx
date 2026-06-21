@@ -58,7 +58,7 @@ export default function AppRoutes() {
           }
         />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
-        <Route path="/AdminDashboard/Users" element={<Users />} />
+        <Route path="/Users" element={<Users />} />
       </Routes>
     </BrowserRouter>
   );

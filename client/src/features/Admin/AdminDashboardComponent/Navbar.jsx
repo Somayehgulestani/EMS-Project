@@ -20,7 +20,7 @@ export default function Navbar() {
       >
         Dashboard
       </button>
-      <Link to="/AdminDashboard/Users">
+      <Link to="/Users">
         <button
           className="
               w-full
@@ -40,8 +40,9 @@ export default function Navbar() {
         </button>
       </Link>
 
-      <button
-        className="
+      <Link to="/Instructors">
+        <button
+          className="
               w-full
               flex
               items-center
@@ -54,9 +55,10 @@ export default function Navbar() {
               hover:bg-[#F8F5F2]
               transition-all
             "
-      >
-        Teachers
-      </button>
+        >
+          Teachers
+        </button>
+      </Link>
 
       <button
         className="

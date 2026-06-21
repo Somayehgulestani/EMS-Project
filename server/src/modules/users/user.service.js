@@ -63,11 +63,16 @@ const getAllUsers = async (query) => {
 
   const total = await User.countDocuments(filters);
 
+  const totalPages = Math.ceil(total / limit);
+  const totalIsActive = await User.countDocuments({ isActive: true });
+
   return {
     meta: {
       page,
       limit,
       total,
+      totalPages,
+      totalIsActive,
     },
 
     data: result,

@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../users/user.model");
 const Verification = require("./verification.model");
+const studentService = require("../students/student.service");
+const instructorService = require("../instructors/instructor.service");
 
 const mailer = require("../../utils/sendEmail");
 
@@ -15,7 +17,7 @@ const generateVerificationCode = () => {
 /*
  Send Verification Code */
 const sendVerificationCode = async (payload) => {
-  const { fullName, email, password, role } = payload;
+  const { fullName, email, phone, password, role } = payload;
 
   /* Check Existing User */
 
@@ -50,6 +52,7 @@ const sendVerificationCode = async (payload) => {
   await Verification.create({
     fullName,
     email,
+    phone,
     password,
     role,
     code,
@@ -100,9 +103,27 @@ const verifyEmail = async (payload) => {
   const user = await User.create({
     fullName: verificationData.fullName,
     email: verificationData.email,
+    phone: verificationData.phone,
     password: hashedPassword,
     role: verificationData.role,
   });
+
+  /*
+ Create Student Automatically
+*/
+
+  if (user.role === "student") {
+    await studentService.createStudent({
+      user: user._id,
+    });
+  }
+
+  /* Create Instructor Automatically */
+  if (user.role === "instructor") {
+    await instructorService.createInstructor({
+      user: user._id,
+    });
+  }
 
   /* Delete Verification Record */
 
