@@ -60,8 +60,9 @@ export default function Navbar() {
         </button>
       </Link>
 
-      <button
-        className="
+      <Link to="/Students">
+        <button
+          className="
               w-full
               flex
               items-center
@@ -74,9 +75,10 @@ export default function Navbar() {
               hover:bg-[#F8F5F2]
               transition-all
             "
-      >
-        Students
-      </button>
+        >
+          Students
+        </button>
+      </Link>
 
       <button
         className="

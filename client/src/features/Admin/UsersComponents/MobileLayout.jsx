@@ -31,7 +31,8 @@ export default function MobileLayout({ user }) {
 
           <div>
             <p className="text-sm font-semibold text-[#4B403A]">
-              {user.fullName}
+              {user?.fullName?.charAt(0).toUpperCase()}
+              {user?.fullName?.slice(1)}
             </p>
 
             <p className="text-xs text-[#7A6E66] mt-1">{user.email}</p>

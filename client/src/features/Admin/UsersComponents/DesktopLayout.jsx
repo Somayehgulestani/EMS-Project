@@ -5,7 +5,8 @@ export default function DesktopLayout({ user }) {
       <div className="flex items-center gap-3">
         <div>
           <p className="text-sm font-semibold text-[#4B403A]">
-            {user.fullName}
+            {user?.fullName?.charAt(0).toUpperCase()}
+            {user?.fullName?.slice(1)}
           </p>
 
           <p className="text-xs text-[#7A6E66]">

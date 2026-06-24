@@ -9,6 +9,7 @@ import Loader from "../pages/Loader";
 import AdminLogin from "../pages/AdminLogin";
 import AdminDashboard from "../pages/AdminDashboard";
 import Users from "../pages/Users";
+import Students from "../pages/Students";
 
 export default function AppRoutes() {
   const [loader, setLoader] = useState(false);
@@ -59,6 +60,7 @@ export default function AppRoutes() {
         />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/Users" element={<Users />} />
+        <Route path="/Students" element={<Students />} />
       </Routes>
     </BrowserRouter>
   );
