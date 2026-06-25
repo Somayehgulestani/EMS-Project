@@ -1,6 +1,5 @@
 import ErrorMessage from "../components/ErrorMessage";
 import FormStructures from "../components/FormsStructures";
-import SuccessMessage from "../components/SuccessMessage";
 import Footer from "../features/Authenication/LoginComponent/Footer";
 import Form from "../features/Authenication/LoginComponent/Form";
 import Header from "../features/Authenication/LoginComponent/Header";
@@ -10,8 +9,6 @@ export default function Login({
   setErrorMessage,
   setLoader,
   loader,
-  setSuccessMessage,
-  successMessage,
 }) {
   console.log(errorMessage);
 
@@ -27,8 +24,6 @@ export default function Login({
           setErrorMessage={setErrorMessage}
           setLoader={setLoader}
           loader={loader}
-          setSuccessMessage={setSuccessMessage}
-          successMessage={successMessage}
         />
         <Footer />
       </FormStructures>

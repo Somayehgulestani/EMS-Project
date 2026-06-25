@@ -14,7 +14,6 @@ import Students from "../pages/Students";
 export default function AppRoutes() {
   const [loader, setLoader] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState(null);
   console.log(errorMessage);
 
   return (
@@ -41,8 +40,6 @@ export default function AppRoutes() {
               loader={loader}
               errorMessage={errorMessage}
               setErrorMessage={setErrorMessage}
-              successMessage={successMessage}
-              setSuccessMessage={setSuccessMessage}
             />
           }
         />
@@ -51,7 +48,6 @@ export default function AppRoutes() {
           path="/AdminForm"
           element={
             <AdminLogin
-              setSuccessMessage={setSuccessMessage}
               setErrorMessage={setErrorMessage}
               errorMessage={errorMessage}
               setLoader={setLoader}
@@ -60,7 +56,17 @@ export default function AppRoutes() {
         />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/Users" element={<Users />} />
-        <Route path="/Students" element={<Students />} />
+        <Route
+          path="/Students"
+          element={
+            <Students
+              setLoader={setLoader}
+              loader={loader}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

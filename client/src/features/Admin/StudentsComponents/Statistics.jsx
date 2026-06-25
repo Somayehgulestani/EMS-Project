@@ -1,9 +1,11 @@
 export default function Statistics({ meta }) {
+  console.log(meta);
+
   const stats = [
     { label: "Students", value: meta.total },
-    { label: "Active", value: meta.activeStudents },
-    { label: "Paid", value: meta.paidStudents },
-    { label: "Unpaid", value: meta.unpaidStudents },
+    { label: "Active", value: meta?.statistics?.activeStudents },
+    { label: "Paid", value: meta?.statistics?.paidStudents },
+    { label: "Unpaid", value: meta.statistics?.unpaidStudents },
   ];
   return (
     <div className="grid grid-cols-4 gap-2 mt-3">

@@ -14,19 +14,15 @@ function reducer(state, action) {
       return state;
   }
 }
-export default function Form({
-  setSuccessMessage,
-  setLoader,
-  setErrorMessage,
-}) {
+export default function Form({ setLoader, setErrorMessage }) {
   const [state, dispatch] = useReducer(reducer, initialValue);
   const { email, password, adminSecret } = state;
   const navigate = useNavigate();
 
   async function response(e) {
     e.preventDefault();
-    setSuccessMessage("");
     setLoader(true);
+    setErrorMessage("");
 
     try {
       const response = await fetch(
@@ -48,24 +44,21 @@ export default function Form({
 
       if (!response.ok) {
         setErrorMessage(data.message);
-        setSuccessMessage("");
 
         setTimeout(() => {
           setErrorMessage("");
         }, 5000);
-      } else {
-        setErrorMessage("");
-        setSuccessMessage(data.message);
+        return;
       }
 
-      sessionStorage.setItem("Token", data.data.token);
+      sessionStorage.setItem("Token", data?.data?.token);
 
       navigate("/AdminDashboard");
 
       console.log(data);
     } catch (error) {
       console.error("Error:", error);
-      setErrorMessage("Network Error");
+      setErrorMessage("Something is wrong");
     } finally {
       setLoader(false);
     }

@@ -4,7 +4,7 @@ import Searchbar from "../features/Admin/StudentsComponents/Searchbar";
 import Statistics from "../features/Admin/StudentsComponents/Statistics";
 import StudentsTable from "../features/Admin/StudentsComponents/StudentsTable";
 
-export default function StudentsListUI() {
+export default function StudentsListUI({ setLoader, setErrorMessage }) {
   const [students, setStudents] = useState([]);
   const [page, setPage] = useState(1);
   const [meta, setMeta] = useState({});
@@ -20,11 +20,12 @@ export default function StudentsListUI() {
       <StudentsTable
         students={students}
         setStudents={setStudents}
-        meta={meta}
         setMeta={setMeta}
         page={page}
         setPage={setPage}
         query={query}
+        setErrorMessage={setErrorMessage}
+        setLoader={setLoader}
       />
       <Buttons page={page} setPage={setPage} meta={meta} />
     </div>

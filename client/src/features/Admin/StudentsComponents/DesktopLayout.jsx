@@ -1,30 +1,66 @@
-import { useState } from "react";
+export default function DesktopLayout({
+  students,
+  handleStatusChange,
+  handleChangePaymentStatus,
+  setErrorMessage,
+  setLoader,
+}) {
+  const Token = sessionStorage.getItem("Token");
 
-export default function DesktopLayout({ meta, students }) {
-  const [id, setId] = useState("");
-  console.log(id);
+  async function changeAcademicStatus(id, currentStatus) {
+    setLoader(true);
+    const changeStatus = currentStatus === "active" ? "inactive" : "active";
+    handleStatusChange(id, currentStatus);
 
-  const Token = sessionStorage.getItem("token");
-
-  const changeStatus = meta.academicStatus === "active" ? "inactive" : "active";
-  async function changeAcademicStatus(id) {
-    setId(id);
-    const response = await fetch(
-      `http://localhost:5000/api/v1/students/${id} `,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: Token,
-          "Content-Type": "application/json",
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/v1/students/${id} `,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: Token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            academicStatus: changeStatus,
+          }),
         },
-        body: JSON.stringify({
-          id: id,
-          academicStatus: changeStatus,
-        }),
-      },
-    );
-    const data = await response.json();
-    console.log(data);
+      );
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      setErrorMessage(error.messages);
+    } finally {
+      setLoader(false);
+    }
+  }
+
+  async function changePaymentStatus(id, currentStatus) {
+    setLoader(true);
+    const changeStatus = currentStatus === "paid" ? "unpaid" : "paid";
+    handleChangePaymentStatus(id, currentStatus);
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/v1/students/${id} `,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: Token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            financialStatus: changeStatus,
+          }),
+        },
+      );
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      setErrorMessage(error.messages);
+    } finally {
+      setLoader(false);
+    }
   }
 
   return (
@@ -39,10 +75,11 @@ export default function DesktopLayout({ meta, students }) {
     overflow-hidden
   "
     >
-      {students.map((student) => (
-        <div
-          key={student.studentCode}
-          className="
+      {students.map((student) => {
+        return (
+          <div
+            key={student.studentCode}
+            className="
         grid
         grid-cols-[2.3fr_1.7fr_2.2fr_2fr_1.2fr_2fr_2fr]
         gap-6
@@ -54,55 +91,55 @@ export default function DesktopLayout({ meta, students }) {
         hover:bg-[#FCFAF8]
         transition-all
       "
-        >
-          {/* Student */}
+          >
+            {/* Student */}
 
-          <div className="flex items-center gap-4">
-            <h3 className="text-sm font-semibold text-[#4B403A]">
-              {student?.fullName?.charAt(0).toUpperCase()}
-              {student?.fullName?.slice(1)}
-            </h3>
-          </div>
+            <div className="flex items-center gap-4">
+              <h3 className="text-sm font-semibold text-[#4B403A]">
+                {student?.fullName?.charAt(0).toUpperCase()}
+                {student?.fullName?.slice(1)}
+              </h3>
+            </div>
 
-          {/* ID */}
+            {/* ID */}
 
-          <p
-            className="
+            <p
+              className="
           text-sm
           text-[#4B403A]
           truncate
         "
-          >
-            {student.studentCode}
-          </p>
+            >
+              {student.studentCode}
+            </p>
 
-          {/* Email */}
+            {/* Email */}
 
-          <p
-            className="
-          text-sm
-          text-[#6D625B]
-          truncate
-        "
-          >
-            {student.email}
-          </p>
-
-          {/* phone */}
-          <p
-            className="
-          text-sm
-          text-[#6D625B]
-          truncate
-        "
-          >
-            {student.phone}
-          </p>
-          {/* Status */}
-
-          <div>
-            <span
+            <p
               className="
+          text-sm
+          text-[#6D625B]
+          truncate
+        "
+            >
+              {student.email}
+            </p>
+
+            {/* phone */}
+            <p
+              className="
+          text-sm
+          text-[#6D625B]
+          truncate
+        "
+            >
+              {student.phone}
+            </p>
+            {/* Status */}
+
+            <div>
+              <span
+                className="
             inline-flex
             items-center
             gap-2
@@ -110,31 +147,32 @@ export default function DesktopLayout({ meta, students }) {
             py-1.5
             rounded-full
             bg-green-100
-           
             text-xs
             font-medium
           "
-              style={{
-                backgroundColor:
-                  student.academicStatus === "active" ? "#82e1a5" : "#e06969",
-              }}
-            >
-              <span
-                className="w-2 h-2 rounded-full"
                 style={{
                   backgroundColor:
-                    student.academicStatus === "active" ? "#1aaa4f" : "#b92c2c",
+                    student.academicStatus === "active" ? "#82e1a5" : "#e06969",
                 }}
-              ></span>
-              {student.academicStatus}
-            </span>
-          </div>
+              >
+                <span
+                  className="w-2 h-2 rounded-full"
+                  style={{
+                    backgroundColor:
+                      student.academicStatus === "active"
+                        ? "#1aaa4f"
+                        : "#b92c2c",
+                  }}
+                ></span>
+                {student.academicStatus}
+              </span>
+            </div>
 
-          {/* Payment */}
+            {/* Payment */}
 
-          <div>
-            <span
-              className="
+            <div>
+              <span
+                className="
             inline-flex
             items-center
             gap-2
@@ -146,17 +184,19 @@ export default function DesktopLayout({ meta, students }) {
             text-xs
             font-medium
           "
-            >
-              {student.financialStatus}
-            </span>
-          </div>
+              >
+                {student.financialStatus}
+              </span>
+            </div>
 
-          {/* Actions */}
+            {/* Actions */}
 
-          <div className="flex justify-end gap-3">
-            <button
-              onClick={() => changeAcademicStatus(student._id)}
-              className="
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() =>
+                  changeAcademicStatus(student._id, student.academicStatus)
+                }
+                className="
             px-4
             py-2
             rounded-xl
@@ -169,12 +209,15 @@ export default function DesktopLayout({ meta, students }) {
             font-semibold
             transition-all
           "
-            >
-              Change Status
-            </button>
+              >
+                Change Status
+              </button>
 
-            <button
-              className="
+              <button
+                onClick={() =>
+                  changePaymentStatus(student._id, student.financialStatus)
+                }
+                className="
             px-4
             py-2
             rounded-xl
@@ -185,12 +228,13 @@ export default function DesktopLayout({ meta, students }) {
             font-semibold
             transition-all
           "
-            >
-              Change Payment
-            </button>
+              >
+                Change Payment
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
