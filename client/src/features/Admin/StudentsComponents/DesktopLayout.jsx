@@ -1,67 +1,26 @@
+import useChangeAcademicStatus from "../../../hooks/useChangeAcademicStatus";
+import useChangePaymentStatus from "../../../hooks/useChangePaymentStatus";
+
 export default function DesktopLayout({
   students,
   handleStatusChange,
   handleChangePaymentStatus,
+  fetchData,
   setErrorMessage,
   setLoader,
 }) {
-  const Token = sessionStorage.getItem("Token");
-
-  async function changeAcademicStatus(id, currentStatus) {
-    setLoader(true);
-    const changeStatus = currentStatus === "active" ? "inactive" : "active";
-    handleStatusChange(id, currentStatus);
-
-    try {
-      const response = await fetch(
-        `http://localhost:5000/api/v1/students/${id} `,
-        {
-          method: "PATCH",
-          headers: {
-            Authorization: Token,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            academicStatus: changeStatus,
-          }),
-        },
-      );
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      setErrorMessage(error.messages);
-    } finally {
-      setLoader(false);
-    }
-  }
-
-  async function changePaymentStatus(id, currentStatus) {
-    setLoader(true);
-    const changeStatus = currentStatus === "paid" ? "unpaid" : "paid";
-    handleChangePaymentStatus(id, currentStatus);
-
-    try {
-      const response = await fetch(
-        `http://localhost:5000/api/v1/students/${id} `,
-        {
-          method: "PATCH",
-          headers: {
-            Authorization: Token,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            financialStatus: changeStatus,
-          }),
-        },
-      );
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      setErrorMessage(error.messages);
-    } finally {
-      setLoader(false);
-    }
-  }
+  const { changeAcademicStatus } = useChangeAcademicStatus({
+    fetchData,
+    handleStatusChange,
+    setLoader,
+    setErrorMessage,
+  });
+  const { changePaymentStatus } = useChangePaymentStatus({
+    fetchData,
+    handleChangePaymentStatus,
+    setLoader,
+    setErrorMessage,
+  });
 
   return (
     <div

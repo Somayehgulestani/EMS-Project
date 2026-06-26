@@ -1,4 +1,27 @@
-export default function MobileLayout({ students }) {
+import useChangeAcademicStatus from "../../../hooks/useChangeAcademicStatus";
+import useChangePaymentStatus from "../../../hooks/useChangePaymentStatus";
+
+export default function MobileLayout({
+  students,
+  handleStatusChange,
+  handleChangePaymentStatus,
+  fetchData,
+  setErrorMessage,
+  setLoader,
+}) {
+  const { changeAcademicStatus } = useChangeAcademicStatus({
+    fetchData,
+    handleStatusChange,
+    setLoader,
+    setErrorMessage,
+  });
+  const { changePaymentStatus } = useChangePaymentStatus({
+    fetchData,
+    handleChangePaymentStatus,
+    setLoader,
+    setErrorMessage,
+  });
+
   return (
     <div className=" mt-6 space-y-4">
       {students.map((student) => (
@@ -67,10 +90,14 @@ export default function MobileLayout({ students }) {
               py-1
               rounded-full
               bg-green-100
-              text-green-700
+              
               text-xs
               font-semibold
             "
+                style={{
+                  backgroundColor:
+                    student.academicStatus === "active" ? "#82e1a5" : "#db5a5a",
+                }}
               >
                 {student.academicStatus}
               </span>
@@ -99,6 +126,9 @@ export default function MobileLayout({ students }) {
 
           <div className="grid grid-cols-2 gap-3 mt-6">
             <button
+              onClick={() =>
+                changeAcademicStatus(student._id, student.academicStatus)
+              }
               className="
             h-11
             rounded-xl
@@ -116,6 +146,9 @@ export default function MobileLayout({ students }) {
             </button>
 
             <button
+              onClick={() =>
+                changePaymentStatus(student._id, student.financialStatus)
+              }
               className="
             h-11
             rounded-xl
