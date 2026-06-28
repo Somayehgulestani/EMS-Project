@@ -10,6 +10,8 @@ import AdminLogin from "../pages/AdminLogin";
 import AdminDashboard from "../pages/AdminDashboard";
 import Users from "../pages/Users";
 import Students from "../pages/Students";
+import Teachers from "../pages/Teachers";
+import TeachersProfile from "../pages/TeachersProfile";
 
 export default function AppRoutes() {
   const [loader, setLoader] = useState(false);
@@ -59,14 +61,16 @@ export default function AppRoutes() {
         <Route
           path="/Students"
           element={
-            <Students
-              setLoader={setLoader}
-              loader={loader}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
-            />
+            <Students setLoader={setLoader} setErrorMessage={setErrorMessage} />
           }
         />
+        <Route
+          path="/Instructors"
+          element={
+            <Teachers setLoader={setLoader} setErrorMessage={setErrorMessage} />
+          }
+        />
+        <Route path="/TeacherProfile" element={<TeachersProfile />} />
       </Routes>
     </BrowserRouter>
   );

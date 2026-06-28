@@ -1,5 +1,5 @@
-import useChangeAcademicStatus from "../../../hooks/useChangeAcademicStatus";
-import useChangePaymentStatus from "../../../hooks/useChangePaymentStatus";
+import useChangeAcademicStatus from "../../../hooks/Students/useChangeAcademicStatus";
+import useChangePaymentStatus from "../../../hooks/Students/useChangePaymentStatus";
 
 export default function DesktopLayout({
   students,
