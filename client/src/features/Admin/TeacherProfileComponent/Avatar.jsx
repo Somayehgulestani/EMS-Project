@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { SingleTeacherContext } from "../../../context/singleTeacherContext";
+import { TeachersContext } from "../../../context/TeachersManagementContext";
 
 export default function Avatar() {
-  const { singleTeacher } = useContext(SingleTeacherContext);
+  const { singleTeacher } = useContext(TeachersContext);
 
   return (
     <div className="flex flex-col items-center">

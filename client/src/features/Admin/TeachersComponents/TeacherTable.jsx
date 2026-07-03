@@ -2,7 +2,7 @@ import { useMediaQuery } from "react-responsive";
 import DesktopLayout from "./DesktopLayout";
 import MobileLayout from "./MobileLayout";
 import { useContext, useEffect } from "react";
-import { TeachersContext } from "../../../context/TeachersContext";
+import { TeachersContext } from "../../../context/TeachersManagementContext";
 
 export default function TeacherTable({
   setMeta,
@@ -70,7 +70,6 @@ export default function TeacherTable({
     >
       {isDesktop ? (
         <DesktopLayout
-          Teachers={Teachers}
           handleStatusChange={handleStatusChange}
           fetchData={fetchData}
           setErrorMessage={setErrorMessage}

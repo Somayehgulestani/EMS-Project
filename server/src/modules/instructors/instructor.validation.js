@@ -5,7 +5,7 @@ const Joi = require("joi");
 const createInstructorValidationSchema = Joi.object({
   user: Joi.string().required(),
 
-  specialization: Joi.string().valid("English", "Computer", "Other").optional(),
+  specialization: Joi.string().valid().trim().optional(),
 
   salaryType: Joi.string()
     .valid("monthly", "percentage", "perClass")
@@ -25,7 +25,7 @@ const createInstructorValidationSchema = Joi.object({
 /* Update */
 
 const updateInstructorValidationSchema = Joi.object({
-  specialization: Joi.string().valid("English", "Computer", "Other").optional(),
+  specialization: Joi.string().valid().trim().optional(),
 
   salaryType: Joi.string()
     .valid("monthly", "percentage", "perClass")

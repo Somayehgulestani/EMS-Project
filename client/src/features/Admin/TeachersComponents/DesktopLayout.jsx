@@ -3,7 +3,7 @@ import useChangeAcademicStatus from "../../../hooks/Teachers/useChangeAcademicSt
 import useGetTeacherById from "../../../hooks/Teachers/useGetTeacherById";
 import DestopLayoutHeader from "./DestopLayoutHeader";
 import { Link } from "react-router-dom";
-import { TeachersContext } from "../../../context/TeachersContext";
+import { TeachersContext } from "../../../context/TeachersManagementContext";
 
 export default function DesktopLayout({
   handleStatusChange,
@@ -19,12 +19,11 @@ export default function DesktopLayout({
     setErrorMessage,
     setLoader,
   });
-  const { handleViewProfile, singleTeacher } = useGetTeacherById({
+  const { handleViewProfile } = useGetTeacherById({
     Teachers,
     setErrorMessage,
     setLoader,
   });
-  console.log(singleTeacher);
 
   return (
     <div

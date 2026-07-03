@@ -3,17 +3,15 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import AppRoutes from "./routes/AppRoutes";
 import { RoleSelectContextData } from "./context/RoleSelectContext";
-import { SingleTeacherContextProvider } from "./context/singleTeacherContext";
-import { TeachersContextProvider } from "./context/TeachersContext";
+
+import { TeachersManagmentContextProvider } from "./context/TeachersManagementContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <TeachersContextProvider>
-      <SingleTeacherContextProvider>
-        <RoleSelectContextData>
-          <AppRoutes />
-        </RoleSelectContextData>
-      </SingleTeacherContextProvider>
-    </TeachersContextProvider>
+    <TeachersManagmentContextProvider>
+      <RoleSelectContextData>
+        <AppRoutes />
+      </RoleSelectContextData>
+    </TeachersManagmentContextProvider>
   </StrictMode>,
 );

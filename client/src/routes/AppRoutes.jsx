@@ -70,7 +70,15 @@ export default function AppRoutes() {
             <Teachers setLoader={setLoader} setErrorMessage={setErrorMessage} />
           }
         />
-        <Route path="/TeacherProfile" element={<TeachersProfile />} />
+        <Route
+          path="/TeacherProfile"
+          element={
+            <TeachersProfile
+              setLoader={setLoader}
+              setErrorMessage={setErrorMessage}
+            />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

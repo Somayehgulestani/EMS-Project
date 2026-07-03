@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { SingleTeacherContext } from "../../context/singleTeacherContext";
+import { TeachersContext } from "../../context/TeachersManagementContext";
 
 export default function useGetTeacherById({
   setErrorMessage,
@@ -8,7 +8,7 @@ export default function useGetTeacherById({
 }) {
   // const [singleTeacher, setSingleTeacher] = useState({});
   // console.log(singleTeacher[0]);
-  const { singleTeacher, setSingleTeacher } = useContext(SingleTeacherContext);
+  const { singleTeacher, setSingleTeacher } = useContext(TeachersContext);
   console.log(singleTeacher);
 
   const token = sessionStorage.getItem("Token");

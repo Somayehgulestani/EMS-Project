@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TeachersContext } from "../../../context/TeachersContext";
+import { TeachersContext } from "../../../context/TeachersManagementContext";
 
 export default function MobileLayout() {
   const { Teachers } = useContext(TeachersContext);

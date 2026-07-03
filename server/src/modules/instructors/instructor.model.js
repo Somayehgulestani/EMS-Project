@@ -23,8 +23,7 @@ const instructorSchema = new mongoose.Schema(
 
     specialization: {
       type: String,
-      enum: ["English", "Computer", "Other"],
-      default: "English",
+      default: "Not Assigned",
     },
 
     /* Salary */

@@ -7,7 +7,6 @@ export default function Teachers({ setLoader, setErrorMessage }) {
   const [page, setPage] = useState(1);
   const [meta, setMeta] = useState({});
   const [query, setQuery] = useState("");
-  console.log(Teachers);
   console.log(meta);
   console.log(query);
 
